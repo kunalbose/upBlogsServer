@@ -44,12 +44,12 @@ router.post('/login', async (req, res)=>{
             return res.status(404).json("Email does not exists");
         }
         const { password: hash } = user;
-        const {email: emailDb, username} = user;
+        const {email: emailDb, username, _id: id} = user;
         bcrypt
           .compare(password, hash)
           .then(BCres => {
             if(BCres){
-                return res.status(200).json({email: emailDb, username});
+                return res.status(200).json({email: emailDb, username, id});
             }else{
                 return res.status(401).json("Wrong username or Password");
             }
